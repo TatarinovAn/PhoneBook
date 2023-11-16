@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.ValueSource;
 
 class PhoneBookTest {
     @ParameterizedTest
@@ -35,4 +36,26 @@ class PhoneBookTest {
         int sizePhoneBook2 = book.add(nameTwo, phoneTwo);
         Assertions.assertEquals(sizePhoneBook2, 2);
     }
+
+
+    @ParameterizedTest
+    @ValueSource(strings = {"+7(949)783-44-41", "+7(999)923-43-45"})
+    void testFindByNumber(String phone) {
+        PhoneBook book = new PhoneBook();
+        book.add("Anton", "+7(999)923-43-45");
+        book.add("Lera", "+7(949)783-44-41");
+
+        String name = book.findByNumber(phone);
+        Assertions.assertNotEquals(name, null);
+    }
+
+    @Test
+    void testFindByNumberTwo() {
+        PhoneBook book = new PhoneBook();
+        book.add("Anton", "+7(999)923-43-45");
+        String name = book.findByNumber("+7(999)923-43-45");
+        Assertions.assertEquals(name, "Anton");
+    }
+
+
 }
