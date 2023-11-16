@@ -58,7 +58,7 @@ class PhoneBookTest {
     }
 
     @Test
-    void findByName() {
+    void testFindByName() {
         PhoneBook book = new PhoneBook();
         book.add("Dima", "+7(696)955-20-20");
         String phone = book.findByName("Dima");
