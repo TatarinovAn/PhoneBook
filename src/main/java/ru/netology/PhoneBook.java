@@ -31,6 +31,9 @@ public class PhoneBook {
     }
 
     public void printAllNames() {
-        System.out.println("null");
+        Map<String, String> treeMap = new TreeMap<>(phoneBook);
+        for (String name : treeMap.keySet()) {
+            System.out.print(name + "\n");
+        }
     }
 }
