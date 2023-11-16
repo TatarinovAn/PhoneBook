@@ -20,8 +20,12 @@ public class PhoneBook {
         return phoneBook.size();
     }
 
-    public String findByNumber(String numder) {
+    public String findByNumber(String number) {
         BiMap<String, String> phoneBookName = HashBiMap.create(phoneBook);
-        return phoneBookName.inverse().get(numder);
+        return phoneBookName.inverse().get(number);
+    }
+
+    public String findByName(String name) {
+        return null;
     }
 }
