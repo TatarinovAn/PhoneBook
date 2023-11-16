@@ -5,6 +5,7 @@ import com.google.common.collect.HashBiMap;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 public class PhoneBook {
     public Map<String, String> phoneBook = new HashMap<>();
@@ -27,5 +28,9 @@ public class PhoneBook {
 
     public String findByName(String name) {
         return phoneBook.get(name);
+    }
+
+    public void printAllNames() {
+        System.out.println("null");
     }
 }

@@ -2,12 +2,21 @@ package ru.netology;
 
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.PrintStream;
+import java.util.Scanner;
+
+
 class PhoneBookTest {
+    PhoneBook book = new PhoneBook();
+
     @ParameterizedTest
     @CsvSource(value = {
             "Anton, +7(999)923-43-45",
@@ -16,7 +25,7 @@ class PhoneBookTest {
             "Tony, +7(959)953-83-42"})
 
     public void testAdd(String name, String phone) {
-        PhoneBook book = new PhoneBook();
+
 
         int sizePhoneBook = book.add(name, phone);
         Assertions.assertNotEquals(sizePhoneBook, 0);
@@ -24,7 +33,6 @@ class PhoneBookTest {
 
     @Test
     public void testAddTwo() {
-        PhoneBook book = new PhoneBook();
         String name = "Anton";
         String phone = "+7(999)923-43-45";
         int sizePhoneBook = book.add(name, phone);
@@ -41,7 +49,6 @@ class PhoneBookTest {
     @ParameterizedTest
     @ValueSource(strings = {"+7(949)783-44-41", "+7(999)923-43-45"})
     void testFindByNumber(String phone) {
-        PhoneBook book = new PhoneBook();
         book.add("Anton", "+7(999)923-43-45");
         book.add("Lera", "+7(949)783-44-41");
 
@@ -51,7 +58,6 @@ class PhoneBookTest {
 
     @Test
     void testFindByNumberTwo() {
-        PhoneBook book = new PhoneBook();
         book.add("Anton", "+7(999)923-43-45");
         String name = book.findByNumber("+7(999)923-43-45");
         Assertions.assertEquals(name, "Anton");
@@ -59,9 +65,27 @@ class PhoneBookTest {
 
     @Test
     void testFindByName() {
-        PhoneBook book = new PhoneBook();
         book.add("Dima", "+7(696)955-20-20");
         String phone = book.findByName("Dima");
         Assertions.assertEquals(phone, "+7(696)955-20-20");
     }
+
+
+    private final ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+
+    @BeforeEach
+    public void setUp() {
+        System.setOut(new PrintStream(outputStream));
+    }
+
+    @Test
+    void testPrintAllNames() {
+        book.add("Dima", "+7(696)955-20-20");
+        book.add("Anton", "+7(999)923-43-45");
+        book.printAllNames();
+
+        Assertions.assertEquals("Anton" + "\n" + "Dima", outputStream.toString()
+                .trim());
+    }
+
 }
